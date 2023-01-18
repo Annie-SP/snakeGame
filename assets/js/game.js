@@ -36,9 +36,9 @@ let Game = {
 
         game.add.sprite(0, 0, 'bg');
 
-        for(let i = 0; i < 5; i++){
-            snake[0] = game.add.sprite(400+i*squareSize, 400, 'snake'); 
-            snake[i] = game.add.sprite(400+i*squareSize, 400, 'snakeTail');  
+        for(let i = 0; i < 1; i++){
+            snake[i] = game.add.sprite(400+i*squareSize, 400, 'snake'); 
+            //snake[i] = game.add.sprite(400+i*squareSize, 400, 'snakeTail');  
         }
         
         
