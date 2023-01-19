@@ -2,13 +2,14 @@ var Menu = {
 
     preload : function() {
         // Load all the needed resources for the menu.
-        //game.load.image('menu', './assets/images/menu.png');
+        game.load.image('menu', './assets/images/strelka.png');
     },
 
     create: function () {
-
-        this.add.button(300, 200, "GAME OVER", this.startGame, this);
-        game.add.text(300, 200, "START GAME", { font: "bold 72px sans-serif", fill: "#A6BB8D", align: "center"});
+        game.stage.backgroundColor = '#3C6255';
+        this.add.button(240, 400, "menu", this.startGame, this);
+        game.add.text(270, 210, "START GAME", { font: "bold 76px sans-serif", fill: "#EAE7B1", align: "center"});
+        game.add.text(430, 398, "click to start", { font: "bold 30px sans-serif", fill: "#A6BB8D", align: "center"});
     },
 
     startGame: function () {

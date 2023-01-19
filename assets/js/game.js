@@ -26,11 +26,18 @@ let Game = {
         squareSize = 40;              
         score = [];            
         speed = 0;   
-        scoreMax =  JSON.parse(localStorage.getItem('scores'));                     
+        // scoreMax =  JSON.parse(localStorage.getItem('scores'));                     
         updateDelay = 0;                
         direction = 'right';           
         new_direction = null;          
         addNew = false;               
+
+
+        if(localStorage.getItem('scores') !== null){
+            scoreMax = JSON.parse(localStorage.getItem('scores'));
+        } else {
+            scoreMax = 0;
+        }
 
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -38,7 +45,6 @@ let Game = {
 
         for(let i = 0; i < 1; i++){
             snake[i] = game.add.sprite(400+i*squareSize, 400, 'snake'); 
-            //snake[i] = game.add.sprite(400+i*squareSize, 400, 'snakeTail');  
         }
         
         
