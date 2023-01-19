@@ -1,4 +1,4 @@
-var Game_Over = {
+let Game_Over = {
 
     preload : function() {
         game.load.image('menu', './assets/images/strelka.png');

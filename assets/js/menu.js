@@ -1,4 +1,4 @@
-var Menu = {
+let Menu = {
 
     preload : function() {
         // Load all the needed resources for the menu.
