@@ -2,7 +2,6 @@ let Game_Over = {
 
     preload : function() {
         game.load.image('menu', './assets/images/strelka.png');
-
     },
 
     create : function() {

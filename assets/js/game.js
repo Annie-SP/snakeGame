@@ -4,8 +4,7 @@ let snake, snakeTail, apple, squareSize, score, scoreMax, speed,
 
 let Game = {
 
-    preload : function() {
-      
+    preload : function() {      
         game.load.image('bg', './assets/images/bg.png');
         game.load.image('snakeTail', './assets/images/snake.png');
         game.load.image('apple', './assets/images/apple.png');
