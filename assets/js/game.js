@@ -1,4 +1,4 @@
-let snake, snakeTail, apple, squareSize, score, scoreMax, speed,
+let snake, apple, squareSize, score, scoreMax, speed,
     updateDelay, direction, new_direction,
     addNew, cursors, scoreTextValue, speedTextValue, textStyle_Key, textStyle_Value;
 
@@ -6,9 +6,9 @@ let Game = {
 
     preload : function() {      
         game.load.image('bg', './assets/images/bg.png');
-        game.load.image('snakeTail', './assets/images/snake.png');
+        game.load.image('snake', './assets/images/snake.png');
         game.load.image('apple', './assets/images/apple.png');
-        game.load.image('snake', './assets/images/snakeHead.png');
+        // game.load.image('snake', './assets/images/snakeHead.png');
 
         if(localStorage.getItem('scores') !== null){
             scoreMax = JSON.parse(localStorage.getItem('scores'));
@@ -20,17 +20,14 @@ let Game = {
 
     create : function() {
         snake = [];  
-        snakeTail = [];                  
         apple = {};                     
         squareSize = 40;              
         score = [];            
         speed = 0;   
-        // scoreMax =  JSON.parse(localStorage.getItem('scores'));                     
         updateDelay = 0;                
         direction = 'right';           
         new_direction = null;          
         addNew = false;               
-
 
         if(localStorage.getItem('scores') !== null){
             scoreMax = JSON.parse(localStorage.getItem('scores'));
@@ -44,10 +41,9 @@ let Game = {
 
         for(let i = 0; i < 1; i++){
             snake[i] = game.add.sprite(400+i*squareSize, 400, 'snake'); 
-        }
+         }
         
         
-
         this.generateApple();
 
         textStyle_Key = { font: "bold 14px sans-serif", fill: "#EAE7B1", align: "center" };
@@ -67,84 +63,79 @@ let Game = {
 
     update: function() {
 
-        if (cursors.right.isDown && direction!='left')
-        {
-            new_direction = 'right';
+        for(let i = 0; i <= snake.length-1; i++){
+            if (cursors.right.isDown && direction!='left')
+            {
+                new_direction = 'right';                
+            }
+            else if (cursors.left.isDown && direction!='right')
+            {
+                new_direction = 'left';
+            }
+            else if (cursors.up.isDown && direction!='down')
+            {
+                new_direction = 'up';
+            }
+            else if (cursors.down.isDown && direction!='up')
+            {
+                new_direction = 'down';
+            }
         }
-        else if (cursors.left.isDown && direction!='right')
-        {
-            new_direction = 'left';
-        }
-        else if (cursors.up.isDown && direction!='down')
-        {
-            new_direction = 'up';
-        }
-        else if (cursors.down.isDown && direction!='up')
-        {
-            new_direction = 'down';
-        }
-
         speed = Math.min(10, Math.floor(score/5));
 
         speedTextValue.text = '' + speed;
 
-      
         updateDelay++;
 
         if (updateDelay % (10 - speed) == 0) {
 
+        let firstCell = snake[snake.length-1] ,            
+            lastCell = snake.shift(),
+            oldLastCellx = firstCell.x,
+            oldLastCelly = firstCell.y;
 
-            let firstCell = snake[snake.length - 1],
-                lastCell = snake.shift(),
-                oldLastCellx = lastCell.x,
-                oldLastCelly = lastCell.y;
+        if(new_direction){
+            direction = new_direction;
+            new_direction = null;
+        }
 
-          
-            if(new_direction){
-                direction = new_direction;
-                new_direction = null;
-            }
-
-
-            if(direction == 'right'){
-                lastCell.x = firstCell.x + squareSize;
-                lastCell.y = firstCell.y;
-            }
-            else if(direction == 'left'){
-                lastCell.x = firstCell.x - squareSize;
-                lastCell.y = firstCell.y;
-            }
-            else if(direction == 'up'){
-                lastCell.x = firstCell.x;
-                lastCell.y = firstCell.y - squareSize;
-            }
-            else if(direction == 'down'){
-                lastCell.x = firstCell.x;
-                lastCell.y = firstCell.y + squareSize;
-            }
+        if(direction == 'right'){
+            lastCell.x = firstCell.x + squareSize;
+            lastCell.y = firstCell.y;
+        }
+        else if(direction == 'left'){
+            lastCell.x = firstCell.x - squareSize;
+            lastCell.y = firstCell.y;
+        }
+        else if(direction == 'up'){
+            lastCell.x = firstCell.x;
+            lastCell.y = firstCell.y - squareSize;
+        }
+        else if(direction == 'down'){
+            lastCell.x = firstCell.x ;
+            lastCell.y = firstCell.y + squareSize;
+        };
+       
+        snake.push(lastCell);
+        firstCell = lastCell;
 
 
-            snake.push(lastCell);
-            firstCell = lastCell;
-
-            if(addNew){
-                snake.unshift(game.add.sprite(oldLastCellx, oldLastCelly, 'snakeTail'));
-                addNew = false;
-            }
-
+        if(addNew){
+            snake.unshift(game.add.sprite(oldLastCellx, oldLastCelly, 'snake'));
+            addNew = false;
+        }
+        
             this.appleCollision();
 
-            this.selfCollision(firstCell);
+            this.selfCollision(lastCell);
 
-            this.wallCollision(firstCell);
+            this.wallCollision(lastCell);
         }
 
 
     },
 
     generateApple: function(){
-
-
         // X is between 0 and 585 (39*15) 1200 (30*40) 1040 = 26
         // Y is between 0 and 435 (29*15)  800 (20*40) 640 = 16
 
@@ -155,7 +146,6 @@ let Game = {
     },
 
     appleCollision: function() {
-
 
         for(let i = 0; i < snake.length; i++){
             if(snake[i].x == apple.x && snake[i].y == apple.y){
