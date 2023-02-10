@@ -7,8 +7,7 @@ let Game = {
     preload : function() {      
         game.load.image('bg', './assets/images/bg.png');
         game.load.image('snake', './assets/images/snake.png');
-        game.load.image('apple', './assets/images/apple.png');
-        // game.load.image('snake', './assets/images/snakeHead.png');
+        game.load.image('apple', './assets/images/apple1.png');
 
         if(localStorage.getItem('scores') !== null){
             scoreMax = JSON.parse(localStorage.getItem('scores'));
