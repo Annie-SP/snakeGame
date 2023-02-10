@@ -48,15 +48,15 @@ let Game = {
         textStyle_Key = { font: "bold 14px sans-serif", fill: "#EAE7B1", align: "center" };
         textStyle_Value = { font: "bold 18px sans-serif", fill: "#fff", align: "center" };
 
-        game.add.text(100, 20, "SCORE", textStyle_Key);
-        scoreTextValue = game.add.text(170, 18, score.toString(), textStyle_Value);
+        game.add.text(100, 15, "SCORE", textStyle_Key);
+        scoreTextValue = game.add.text(170, 12, score.toString(), textStyle_Value);
         localStorage.setItem('score', score);
 
-        game.add.text(450, 20, "SPEED", textStyle_Key);
-        speedTextValue = game.add.text(520, 18, speed.toString(), textStyle_Value);
+        game.add.text(450, 15, "SPEED", textStyle_Key);
+        speedTextValue = game.add.text(520, 12, speed.toString(), textStyle_Value);
 
-        game.add.text(850, 20, "MAX SCORE", textStyle_Key);
-        scoreMaxTextValue = game.add.text(950, 18, scoreMax, textStyle_Value);
+        game.add.text(850, 15, "MAX SCORE", textStyle_Key);
+        scoreMaxTextValue = game.add.text(950, 12, scoreMax, textStyle_Value);
 
     },
 
@@ -183,8 +183,8 @@ let Game = {
         } else if(head.x < 0) {
             head.x = 1040;
         } else if (head.y >= 640){
-            head.y = 0;
-        } else if(head.y < 0){
+            head.y = 40;
+        } else if(head.y < 40){
             head.y = 640;
         }
    }
