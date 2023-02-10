@@ -183,8 +183,8 @@ let Game = {
         } else if(head.x < 0) {
             head.x = 1040;
         } else if (head.y >= 640){
-            head.y = 40;
-        } else if(head.y < 40){
+            head.y = 0;
+        } else if(head.y < 0){
             head.y = 640;
         }
    }
